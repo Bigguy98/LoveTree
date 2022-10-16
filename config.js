@@ -19,5 +19,5 @@ var config = {
         "Hãy luôn vui vẻ, lạc quan, yêu đời",
         "Để từ giờ ..."
     ],
-    date: "2022-10-16",
+    date: "2022-10-16T22:30:00",
 }

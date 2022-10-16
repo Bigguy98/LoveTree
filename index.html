@@ -2,7 +2,7 @@
 <html xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Our Story</title>
+    <title>For you Trân Nguyễn</title>
 
     <link type="text/css" rel="stylesheet" href="./index_files/default.css">
     <script type="text/javascript" src="./index_files/jquery.min.js"></script>
@@ -26,9 +26,14 @@
 </head>
 <body>
 
-<img src="https://ajlovechina.github.io/loveBalloon/static/music.png" style="position: fixed;z-index: 10001;top:10px;right:10px;" onclick="let m = document.querySelector('.song-audio-autoplay'); if (m.paused ) {m.play(); this.className = 'rotateImages'} else {m.pause(); this.className = ''}">
+<h2 style="position: fixed;
+    top: 10px;
+    right: 85px;
+    font-size: inherit;
+    font-weight: normal;">Nhấn icon để bật nhạc</h2>
+<img id="music-img" src="images/music.png" style="position: fixed;z-index: 10001;top:10px;right:10px;" onclick="let m = document.querySelector('.song-audio-autoplay'); if (m.paused ) {m.play(); this.className = 'rotateImages'} else {m.pause(); this.className = ''}">
 <audio class="song-audio-autoplay" controls loop style="display: none;visibility: hidden">
-    <source src="./index_files/music.mp3" type="audio/mp3"/>
+    <source src="./index_files/hon-ca-yeu-video-lyrics.mp3" type="audio/mp3"/>
 </audio>
 <style type="text/css">
     .rotateImages{
@@ -48,10 +53,6 @@
 </style>
 
 <div id="main">
-    <div id="error">本页面采用HTML5编辑，目前您的浏览器无法显示，请换成谷歌(<a
-            href="http://www.google.cn/chrome/intl/zh-CN/landing_chrome.html?hl=zh-CN&brand=CHMI">Chrome</a>)或者火狐(<a
-            href="http://firefox.com.cn/download/">Firefox</a>)浏览器，或者其他游览器的最新版本。
-    </div>
     <div id="wrap">
         <div id="text">
             <div id="code">
@@ -68,13 +69,15 @@
 </div>
 
 <script type="text/javascript">
+
     $('#code').html(config.lines.map(item => {
         return `<span class="say">${item}</span><br>
 						<span class="say"> </span><br>`
     }).reduce((a, b) => {
         return a + b;
     }))
-    $("#clock-box-inside-text").html(`${config.names[0]}<span class="STYLE1">与</span> ${config.names[1]}<span class="STYLE1">已经相恋了</span>`)
+    // $("#clock-box-inside-text").html(`${config.names[0]}<span class="STYLE1">AND</span> ${config.names[1]}<span class="STYLE1">KNOWN EACH OTHER FOR</span>`)
+    $("#clock-box-inside-text").html(`<span class="clock-title">Mỗi phút giây đều là một khoảnh khắc hạnh phúc</span>`)
 </script>
 
 <script>
@@ -131,24 +134,26 @@
         var tree = new Tree(canvas[0], width, height, opts);
         var seed = tree.seed;
         var foot = tree.footer;
-        var hold = 1;
+        var hold = 0;
 
-        canvas.click(function (e) {
-            var offset = canvas.offset(), x, y;
-            x = e.pageX - offset.left;
-            y = e.pageY - offset.top;
-            if (seed.hover(x, y)) {
-                hold = 0;
-                canvas.unbind("click");
-                canvas.unbind("mousemove");
-                canvas.removeClass('hand');
-            }
-        }).mousemove(function (e) {
-            var offset = canvas.offset(), x, y;
-            x = e.pageX - offset.left;
-            y = e.pageY - offset.top;
-            canvas.toggleClass('hand', seed.hover(x, y));
-        });
+
+        // canvas.click(function (e) {
+        //     var offset = canvas.offset(), x, y;
+        //     x = e.pageX - offset.left;
+        //     y = e.pageY - offset.top;
+        //     // if (seed.hover(x, y)) {
+        //         hold = 0;
+        //         canvas.unbind("click");
+        //         canvas.unbind("mousemove");
+        //         canvas.removeClass('hand');
+        //     // }
+        // }).mousemove(function (e) {
+        //     var offset = canvas.offset(), x, y;
+        //     x = e.pageX - offset.left;
+        //     y = e.pageY - offset.top;
+        //     canvas.toggleClass('hand', seed.hover(x, y));
+        // });
+
 
         var seedAnimate = eval(Jscex.compile("async", function () {
             seed.draw();
@@ -189,7 +194,6 @@
             foot.draw();
             tree.snapshot("p2", 500, 0, 610, 680);
 
-            // 会有闪烁不得意这样做, (＞﹏＜)
             canvas.parent().css("background", "url(" + tree.toDataURL('image/png') + ")");
             canvas.css("background", "#ffe");
             $await(Jscex.Async.sleep(300));
